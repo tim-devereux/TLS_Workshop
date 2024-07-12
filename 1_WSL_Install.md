@@ -86,16 +86,21 @@ This workshop will guide you through the process of installing Windows Subsystem
 1. Pull a test container image:
 
    ```bash
-   apptainer pull library://alpine:latest
+   apptainer pull docker://tdevereux/raycloudtools_latest.sif
    ```
 
-2. Run the test container:
+2. Run the container:
 
    ```bash
-   apptainer exec alpine_latest.sif cat /etc/os-release
+   apptainer shell --bind /mnt:/mnt raycloudtools_latest.sif
    ```
 
-   This command should display information about the Alpine Linux distribution inside the container.
+3. Exit the container:
+
+   ```bash
+   exit
+   ```
+
 
 ## 7. Troubleshooting
 
