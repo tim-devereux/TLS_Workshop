@@ -1,26 +1,25 @@
-# Extracting dense voxels from RIEGL terrestrial scanner data
+# Extracting tree structural metrics using RayCloudTools
 
 ## Overview
 
 This guide explains how to extract plot level forest structural information using RayCloudTools.
 ## Prerequisites
 
-- **Dependencies**: Ensure you have WSL with the RayCloudTools container.
+- **Dependencies**: Ensure you installed VSCode and WSL with the RayCloudTools container.
+- **Environment**: You should have this repository open in VSCode, using WSL as the host.
 - **Data Preparation**: You should have an already coregistered plot level point cloud as LAZ v1.2.
 
 ## Workflow Steps
 
+
 ### 1. Importing Data
-
-#### Unbound Data
-
 
 To import point cloud data to use is RCT, we use the command rayimport:
 
 Example command:
 
 ```bash
-rayimport cloud.las 0,0,0
+rayimport cloud.las ray 0,0,-10
 ```
 
 ### 2. Clipping Data to Plot Boundary
@@ -31,25 +30,38 @@ Next, clip the point cloud to the plot boundary using 'raysplit capsule'. This c
 raysplit cloud_raycloud.ply capsule 0,0,-10 0,0,30 25
 ```
 
+The output is 2 separate rayclouds, '_inside.ply' and '_outside.ply'. The data within our plot will have the '_inside.ply' suffix. This is the data we will use in the subsequent steps. 
+
 ### 3. Extracting terrain
 
-Extract the digital terrain model, this is required to determine the base of trees in the subsequent step. 
+Here we extract the digital terrain model, this is required to determine the base of trees in the subsequent step. 
 
 ```bash
 rayextract terrain cloud_raycloud_inside.ply
 ```
 
+The ouput with be a 3D mesh, which deliniates the contours of the ground. 
 
-### 4. Extracting trees
 
-Extract the trees using the final raycloud (undecimated) and the terrain mesh:
+### 4. Extracting trees using 'rayextract trees'
+
+Extract trees using the raycloud and the terrain mesh as input:
 
 ```bash
 rayextract trees cloud_raycloud_inside.ply cloud_raycloud_inside_mesh.ply
 ```
 
+rayextract trees will generate three outputs:
+
+1. A segmented raycloud, where each tree is uniquely colored.
+2. A 3D mesh representing the woody components (stems and branches).
+3.  A trees.txt file containing cylinder data representing the tree structural models. All tree metrics are derived from these models.
+
 ### 5. Computing tree metrics
+
+Finally, we compute a set of common metrics from the structural models using 'treeinfo'. 
 
 ```bash
 treeinfo trees cloud_raycloud_inside_tree.txt
 ```
+This will produce another .txt file with the suffix '_trees_info.txt'. This file contains the additional metrics per tree.  This file and 'trees.txt' contain all the data that is used in the subsequent python anlysis. 
