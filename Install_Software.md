@@ -167,7 +167,7 @@ To exit the container and return to WSL:
 
 ## 8. Conclusion
 
-That is everything for this component, you have successfully installed WSL, Apptainer, and VSCode on your Windows machine. You have cloned a Git repository and configured a software container to run RayCloudTools. In the next workshop we will learn to use what we have installed here to extract tree metrics from point cloud data using RCT and analyse the output using Python.
+That is everything for this component! You have successfully installed WSL, Apptainer, and VSCode on your Windows machine. You have cloned a Git repository and configured a software container to run RayCloudTools. In the next workshop we will learn to use what we have installed here to extract tree metrics from point cloud data using RCT and analyse the output using Python.
 
 For additional help or information, refer to the official [WSL documentation](https://docs.microsoft.com/en-us/windows/wsl/), [Visual Studio Code documentation](https://code.visualstudio.com/docs), and [Apptainer documentation](https://apptainer.org/docs/).
 
