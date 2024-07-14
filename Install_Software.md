@@ -1,15 +1,15 @@
-# Workshop 1: Installing WSL, Apptainer and VSCode on Windows
+# Workshop 1: Installing Software
 
-## Table of Contents
+##  Contents
 
 1. Introduction
 2. Prerequisites
 3. Installing Windows Subsystem for Linux (WSL)
-5. Installing Apptainer in WSL
-6. Verifying Installation
-7. Installing VSCode
-8. Cloning this respository in VSCode
-9. Conclusion
+4. Installing Apptainer in WSL
+5. Installing RayCloudTools Container
+6. Installing VSCode
+7. Cloning respository in VSCode
+8. Conclusion
 
 ---
 
@@ -48,7 +48,7 @@ Apptainer, a container platform optimized for high-performance computing (HPC) e
 
 ### Step 2: Setting Up a Linux Distribution
 
-1. Open the installed Linux distribution from the Start menu (e.g., Ubuntu).
+1. Open the installed Linux distribution from the Start menu (Ubuntu).
 2. Set up your Linux user account by following the prompts. You will need to provide a username and password.
 3. Update the package list and upgrade installed packages by entering the following commands into the WSL terminal:
 
@@ -63,7 +63,7 @@ Apptainer, a container platform optimized for high-performance computing (HPC) e
 
 ### Step 1: Install Dependencies
 
-Install the necessary dependencies for Apptainer by entering the following commands into the WSL terminal one line at a time:
+Install the necessary dependencies for Apptainer by entering the following command into the WSL terminal:
 
    ```bash
    sudo apt install -y software-properties-common
@@ -106,7 +106,7 @@ Test the container by running a RayCloudTools command:
    ```bash
    rayimport
    ```
-You should see - 
+If all is well, you should see - 
    ```
    Import a point cloud and trajectory file into a ray cloud
    usage:
@@ -124,12 +124,12 @@ To exit the container and return to WSL:
    ```bash
    exit
    ```
-## 6. Install VSCode
+## 6. Installing VSCode
 
 ### Step 1: Download and Install VSCode
 
    Visit the [Visual Studio Code download page](https://code.visualstudio.com/download).
-   Download the installer for Windows and insall using defaults.
+   Download the installer for Windows and install using defaults.
 
 ### Step 2: Install WSL Extension for VSCode
 
@@ -139,18 +139,18 @@ To exit the container and return to WSL:
 
 ### Step 3: Connect VSCode to WSL
 
-   Open a WSL terminal (e.g., Ubuntu) from the Start menu as before.
-   In the WSL terminal ```code .``` to open the current directory in VSCode. This will connect VSCode to your WSL environment.
+   Open a WSL terminal (Ubuntu) from the Start menu as before.
+   In the WSL terminal, input ```code .``` to open the current directory in VSCode. This will connect VSCode to your WSL environment.
 
 
 
 
 ## 7. Cloning a Repository in VSCode
-### Step 1: Open the Command Palette
+### Step 1: Clone the Repository
 
    In VSCode, press Ctrl+Shift+P to open the Command Palette.
 
-### Step 2: Clone the Repository
+
 
    Type ```Git: Clone``` and select it from the dropdown options.
 
@@ -160,14 +160,15 @@ To exit the container and return to WSL:
    ```
    Choose a directory where you want to clone the repository, your user directory within WSL is appropriate (/home/username).
 
-### Step 3: Open the Cloned Repository
+### Step 2: Open the Cloned Repository
 
    Once the cloning process is complete, you will be prompted to open the cloned repository. Click "Open" to open the project in VSCode.
 
 
 ## 8. Conclusion
 
-You have successfully installed WSL, Apptainer, and VSCode on your Windows machine. You have cloned a Git repository and configured a software container to run RayCloudTools. This setup equips you with modern data processing and analysis tools, allowing you to leverage the power of Linux within a Windows environment. 
+That is everything for this component, you have successfully installed WSL, Apptainer, and VSCode on your Windows machine. You have cloned a Git repository and configured a software container to run RayCloudTools. In the next workshop we will learn to use what we have installed here to extract tree metrics from point cloud data using RCT and analyse the output using Python.
 
+For additional help or information, refer to the official [WSL documentation](https://docs.microsoft.com/en-us/windows/wsl/), [Visual Studio Code documentation](https://code.visualstudio.com/docs), and [Apptainer documentation](https://apptainer.org/docs/).
 
 ---
