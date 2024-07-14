@@ -15,7 +15,7 @@
 
 ## 1. Introduction
 
-This notebook will guide you through installing [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install), [Apptainer](https://apptainer.org/), and [VSCode](https://code.visualstudio.com/) on a Windows machine.
+This document will guide you through installing [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install), [Apptainer](https://apptainer.org/), and [VSCode](https://code.visualstudio.com/) on a Windows machine.
 
 WSL enables you to run a Linux distribution alongside your Windows operating system without needing a virtual machine. Since a significant amount of scientific research is conducted using Linux, it is an essential skill for learning new technologies.
 
