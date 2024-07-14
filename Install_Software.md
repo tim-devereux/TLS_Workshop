@@ -91,7 +91,7 @@ You should see the installed version of Apptainer (e.g. apptainer version 1.3.2-
 To download the RayCloudTools container:
 
    ```bash
-   apptainer pull docker://tdevereux/raycloudtools_latest.sif
+   apptainer pull docker://tdevereux/raycloudtools:latest
    ```
 ### Step 2: Run the RayCloudTools container:
 
