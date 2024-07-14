@@ -74,8 +74,8 @@ To install Apptainer we need to add the remote repository, this is the location 
    sudo add-apt-repository -y ppa:apptainer/ppa
    ```
 And now that the repository is added, we can download and install Apptainer.
-   ```
-   sudo apt -y update && apt install -y apptainer
+   ```bash
+   sudo apt -y update && sudo apt install -y apptainer
    ```
 To verify that Apptainer is installed correctly, run:
 
