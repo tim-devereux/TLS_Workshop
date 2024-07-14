@@ -1,15 +1,8 @@
 # Overview
 
-Welcome to the TLS workshop guide! This repository contains detailed instructions on extracting tree metrics from terrestrial laser scanner (TLS) point clouds using RayCloudTools (RCT) and Python. 
+Welcome to the TLS workshop Git repository! This repository contains detailed instructions on extracting tree metrics from terrestrial laser scanner (TLS) point clouds using RayCloudTools (RCT) and Python. 
 
-Before cloning this repository, it will be nesessary to install VSCode, WSL and Apptainer. Follow the instuctions in [Installing WSL and Apptainer on Windows](1_WSL_Install.md)
-
-
-## Contents
-
-1. [Workshop 1: Installing WSL and Apptainer on Windows](1_WSL_Install.md)
-2. [Extracting Dense Voxels from RIEGL Terrestrial Scanner Data](2_RayCloudTools.md)
-3. [Python notebook for data analysis](3_.md)
+Before cloning this repository and runnning the Python notebooks, it will be nesessary to install VSCode, WSL and Apptainer. To start, follow the instuctions in [Installing WSL and Apptainer on Windows](Install_Software.md). 
 
 
 ---
