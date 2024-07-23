@@ -23,6 +23,11 @@ Apptainer, a container platform optimized for high-performance computing (HPC) e
 - Administrative privileges on the Windows machine
 - An internet connection
 
+
+## Download and Install CloudCompare
+
+   If not already installed on your machine, download the CloudCompare installer for your operating system from [here](https://www.danielgm.net/cc/) and install using defaults. 
+
 ## Installing Windows Subsystem for Linux (WSL)
 
 ### Step 1: Enable WSL
@@ -50,6 +55,12 @@ Apptainer, a container platform optimized for high-performance computing (HPC) e
    ```
    ```
    sudo apt upgrade -y
+   ```
+
+4. Install Python and other dependencies in WSL
+
+   ```
+   sudo apt install python3 python3-pip ipython3 libgl1
    ```
 
 ## Installing Apptainer in WSL
@@ -152,11 +163,6 @@ To exit the container and return to WSL:
 ### Step 2: Open the Cloned Repository
 
    Once the cloning process is complete, you will be prompted to open the cloned repository. Click "Open" to open the project in VSCode.
-
-
-## Download and Install CloudCompare
-
-   If not already installed on your machine, download the CloudCompare installer for your operating system from [here](https://www.danielgm.net/cc/) and install using defaults. 
 
 ## Conclusion
 
