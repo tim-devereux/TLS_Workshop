@@ -1,14 +1,14 @@
 # Overview
 
-Welcome to the TLS workshop Git repository! This repository contains detailed instructions on extracting tree metrics from terrestrial laser scanner (TLS) point clouds using RayCloudTools (RCT) and Python. 
+Welcome to the TLS workshop Git repository! This repository contains detailed instructions on extracting tree metrics from terrestrial laser scanner (TLS) point clouds using RayCloudTools (RCT) and Python notebooks. 
 
-Before cloning this repository and runnning the Python notebooks, it will be nesessary to install VSCode, WSL and Apptainer. To start, follow the instuctions below.
+Before cloning this repository and running the Python notebooks, it will be nesessary to install VSCode, WSL and Apptainer. To start, follow the instuctions below.
 
 ---
 
 ## Required Software
 
-This markdown document will guide you through installing [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install), [Apptainer](https://apptainer.org/), and [VSCode](https://code.visualstudio.com/) on a Windows machine.
+This markdown will guide you through installing [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install), [Apptainer](https://apptainer.org/), and [VSCode](https://code.visualstudio.com/) on a Windows machine.
 
 WSL enables you to run a Linux distribution alongside your Windows operating system without needing a virtual machine. Since a significant amount of scientific research is conducted using Linux, it is an essential skill for learning new technologies.
 
