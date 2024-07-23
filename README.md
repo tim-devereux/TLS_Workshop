@@ -2,7 +2,166 @@
 
 Welcome to the TLS workshop Git repository! This repository contains detailed instructions on extracting tree metrics from terrestrial laser scanner (TLS) point clouds using RayCloudTools (RCT) and Python. 
 
-Before cloning this repository and runnning the Python notebooks, it will be nesessary to install VSCode, WSL and Apptainer. To start, follow the instuctions in [Installing WSL and Apptainer on Windows](Install_Software.md). 
+Before cloning this repository and runnning the Python notebooks, it will be nesessary to install VSCode, WSL and Apptainer. To start, follow the instuctions below.
 
+---
+
+## Required Software
+
+This markdown document will guide you through installing [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install), [Apptainer](https://apptainer.org/), and [VSCode](https://code.visualstudio.com/) on a Windows machine.
+
+WSL enables you to run a Linux distribution alongside your Windows operating system without needing a virtual machine. Since a significant amount of scientific research is conducted using Linux, it is an essential skill for learning new technologies.
+
+Apptainer, a container platform optimized for high-performance computing (HPC) environments, offers a convenient way to distribute software and simplify installations for Linux platforms. We use this to package RayCloudTools.
+
+[Visual Studio Code (VSCode)](https://code.visualstudio.com/) is an open-source code editor developed by Microsoft. It supports a wide range of programming languages and frameworks, making it an ideal tool for data analysis. With the [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) extension, you can seamlessly connect and work within your WSL environment.
+
+
+## Prerequisites
+
+- Windows 11 or Windows 10 Version 2004 and higher (Build 19041 and higher)
+- Administrative privileges on the Windows machine
+- An internet connection
+
+## Installing Windows Subsystem for Linux (WSL)
+
+### Step 1: Enable WSL
+
+1. Open PowerShell as an Administrator. To do this, right-click on the Start button and select "Windows PowerShell (Admin)" or "Command Prompt (Admin)".
+   
+2. Enter the following command to enable WSL:
+
+   ```powershell
+   wsl --install
+   ```
+
+   This command will enable the required features and install the default Linux distribution (Ubuntu).
+
+2. Follow the on-screen instructions to complete the installation.
+
+### Step 2: Setting Up a Linux Distribution
+
+1. Open the installed Linux distribution from the Start menu (Ubuntu).
+2. Set up your Linux user account by following the prompts. You will need to provide a username and password.
+3. Update the package list and upgrade installed packages by entering the following commands into the WSL terminal:
+
+   ```
+   sudo apt update
+   ```
+   ```
+   sudo apt upgrade -y
+   ```
+
+## Installing Apptainer in WSL
+
+### Step 1: Install Dependencies
+
+Install the necessary dependencies for Apptainer by entering the following command into the WSL terminal:
+
+   ```bash
+   sudo apt install -y software-properties-common
+   ```
+### Step 2: Install Apptainer
+To install Apptainer we need to add the remote repository, this is the location online that WSL will look to download the software.
+   ```
+   sudo add-apt-repository -y ppa:apptainer/ppa
+   ```
+And now that the repository is added, we can download and install Apptainer.
+   ```bash
+   sudo apt -y update && sudo apt install -y apptainer
+   ```
+To verify that Apptainer is installed correctly, run:
+
+   ```bash
+   apptainer --version
+   ```
+You should see the installed version of Apptainer (e.g. apptainer version 1.3.2-1).
+
+## Install the RayCloudtools Apptainer Image
+
+### Step 1: Pull the RayCloudTools container image:
+
+To download the RayCloudTools container:
+
+   ```bash
+   apptainer pull docker://tdevereux/raycloudtools:latest
+   ```
+### Step 2: Run the RayCloudTools container using the image:
+
+To run and enter the container:
+
+   ```bash
+   apptainer shell raycloudtools_latest.sif
+   ```
+
+Test the container by running a RayCloudTools command:
+
+   ```bash
+   rayimport
+   ```
+If all is well, you should see - 
+   ```
+   Import a point cloud and trajectory file into a ray cloud
+   usage:
+   rayimport pointcloudfile trajectoryfile  - pointcloudfile can be a .laz, .las or .ply file
+                                             trajectoryfile is a text file using 'time x y z' format per line
+   rayimport pointcloudfile 0,0,0           - use 0,0,0 as the sensor location
+   rayimport pointcloudfile ray 0,0,-10     - use 0,0,-10 as the constant ray vector from start to point
+                                          --max_intensity 100 - specify maximum intensity value (default 100).
+                                                               0 sets all to full intensity (bounded rays).
+                                          --remove_start_pos  - translate so first point is at 0,0,0
+   The output is a .ply file of the same name (or with suffix _raycloud if the input was a .ply file).
+   ```
+To exit the container and return to WSL:
+
+   ```bash
+   exit
+   ```
+## Installing VSCode
+
+### Step 1: Download and Install VSCode
+
+   Visit the [Visual Studio Code download page](https://code.visualstudio.com/download).
+   Download the installer for Windows and install using defaults.
+
+### Step 2: Install WSL Extension for VSCode
+
+   Open VSCode after installation.
+   Click on the Extensions view icon on the Sidebar or press Ctrl+Shift+X.
+   Search for the Remote - WSL extension and install it by clicking on the green install icon.
+
+### Step 3: Connect VSCode to WSL
+
+   Open a WSL terminal (Ubuntu) from the Start menu as before.
+   In the WSL terminal, input ```code .``` to open the current directory in VSCode. This will connect VSCode to your WSL environment.
+
+
+## Cloning the Workshop Repository in VSCode
+### Step 1: Clone the Repository
+
+   In VSCode, press Ctrl+Shift+P to open the Command Palette.
+
+   Type ```Git: Clone``` and select it from the dropdown options.
+
+   Enter the repository URL:
+   ```
+   https://github.com/tim-devereux/TLS_Workshop.git
+   ```
+   Choose a directory where you want to clone the repository, your user directory within WSL is appropriate (/home/username).
+
+### Step 2: Open the Cloned Repository
+
+   Once the cloning process is complete, you will be prompted to open the cloned repository. Click "Open" to open the project in VSCode.
+
+
+## Download and Install CloudCompare
+
+   If not already installed on your machine, download the CloudCompare installer for your operating system from [here](https://www.danielgm.net/cc/) and install using defaults. 
+
+## Conclusion
+
+That is everything for need to comtinue! You have successfully installed WSL, Apptainer, and VSCode on your Windows machine. You have cloned a Git repository and configured a software container to run RayCloudTools. In the next workshop we will learn to use what we have installed here to extract tree metrics from point cloud data using RCT and analyse the output using Python.
+
+For additional help or information, refer to the official [WSL documentation](https://docs.microsoft.com/en-us/windows/wsl/), [Visual Studio Code documentation](https://code.visualstudio.com/docs), and [Apptainer documentation](https://apptainer.org/docs/).
 
 ---
