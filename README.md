@@ -60,7 +60,7 @@ Apptainer, a container platform optimized for high-performance computing (HPC) e
 4. Install Python and other dependencies in WSL
 
    ```
-   sudo apt install python3 python3-pip ipython3 libgl1
+   sudo apt install python3 python3-pip ipython3
    ```
 
 ## Installing Apptainer in WSL

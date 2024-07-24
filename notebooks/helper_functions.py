@@ -1,4 +1,8 @@
 import pandas as pd
+import numpy as np
+import pandas as pd
+from scipy.spatial.transform import Rotation as R
+from scipy.spatial import cKDTree
 
 def treeinfo_attributes_tree(tree_file):
     """
@@ -168,3 +172,66 @@ def icp(source, target, max_iterations=100, tolerance=1e-6):
         prev_error = mean_error
     
     return target_copy, np.vstack((np.hstack((R, t[:, np.newaxis])), np.array([0, 0, 1])))
+
+def nearest_neighbor(src, dst):
+    """ Find the nearest (Euclidean) neighbor in dst for each point in src. """
+    tree = cKDTree(dst)
+    distances, indices = tree.query(src)
+    return distances, indices
+
+def icp(source, target, init_pose=None, max_iterations=50, tolerance=1e-5):
+    """ The Iterative Closest Point method """
+    src = np.copy(source)
+    dst = np.copy(target)
+
+    if init_pose is not None:
+        src = np.dot(src, init_pose[:3, :3].T) + init_pose[:3, 3]
+
+    prev_error = 0
+
+    for i in range(max_iterations):
+        distances, indices = nearest_neighbor(src, dst)
+
+        T = best_fit_transform(src, dst[indices])
+        src = np.dot(src, T[:3, :3].T) + T[:3, 3]
+
+        mean_error = np.mean(distances)
+        if np.abs(prev_error - mean_error) < tolerance:
+            break
+        prev_error = mean_error
+
+    T = best_fit_transform(source, src)
+    return T, distances
+
+def best_fit_transform(A, B):
+    """ Calculates the least-squares best-fit transform that maps A to B """
+    assert len(A) == len(B)
+
+    # Find the centroids
+    centroid_A = np.mean(A, axis=0)
+    centroid_B = np.mean(B, axis=0)
+
+    # Center the points
+    AA = A - centroid_A
+    BB = B - centroid_B
+
+    # Dot is matrix multiplication for array
+    H = np.dot(AA.T, BB)
+
+    # Find the rotation using SVD
+    U, S, Vt = np.linalg.svd(H)
+    R = np.dot(Vt.T, U.T)
+
+    # Special reflection case
+    if np.linalg.det(R) < 0:
+        Vt[-1, :] *= -1
+        R = np.dot(Vt.T, U.T)
+
+    t = centroid_B.T - np.dot(R, centroid_A.T)
+
+    # Create the transformation matrix
+    T = np.identity(4)
+    T[:3, :3] = R
+    T[:3, 3] = t
+
+    return T
