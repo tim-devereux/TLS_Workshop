@@ -4,6 +4,8 @@ Welcome to the TLS workshop Git repository! This repository contains detailed in
 
 Before cloning this repository and running the Python notebooks, it will be nesessary to install VSCode, WSL and Apptainer. To start, follow the instuctions below.
 
+![Processed TLS](processed_tls.png)
+
 ---
 
 ## Required Software
