@@ -2,7 +2,7 @@
 
 Welcome to the TLS workshop Git repository! This repository contains detailed instructions on extracting tree metrics from terrestrial laser scanner (TLS) point clouds using RayCloudTools (RCT) and Python notebooks. 
 
-Before cloning this repository and running the Python notebooks, it will be nesessary to install VSCode, WSL and Apptainer. To start, follow the instuctions below.
+Before cloning this repository and running the Python notebooks, it will be necessary to install VSCode, WSL and Docker. To start, follow the instructions below.
 
 ![Processed TLS](processed_tls.png)
 
@@ -10,11 +10,11 @@ Before cloning this repository and running the Python notebooks, it will be nese
 
 ## Required Software
 
-This markdown will guide you through installing [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install), [Apptainer](https://apptainer.org/), and [VSCode](https://code.visualstudio.com/) on a Windows machine.
+This markdown will guide you through installing [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install), [Docker](https://www.docker.com/), and [VSCode](https://code.visualstudio.com/) on a Windows machine.
 
 WSL enables you to run a Linux distribution alongside your Windows operating system without needing a virtual machine. Since a significant amount of scientific research is conducted using Linux, it is an essential skill for learning new technologies.
 
-Apptainer, a container platform optimized for high-performance computing (HPC) environments, offers a convenient way to distribute software and simplify installations for Linux platforms. We use this to package RayCloudTools.
+Docker, a containerization platform, offers a convenient way to distribute software and simplify installations across different platforms. We use this to package RayCloudTools.
 
 [Visual Studio Code (VSCode)](https://code.visualstudio.com/) is an open-source code editor developed by Microsoft. It supports a wide range of programming languages and frameworks, making it an ideal tool for data analysis. With the [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) extension, you can seamlessly connect and work within your WSL environment.
 
@@ -65,46 +65,66 @@ Apptainer, a container platform optimized for high-performance computing (HPC) e
    sudo apt install python3 python3-pip ipython3
    ```
 
-## Installing Apptainer in WSL
+## Installing Docker in WSL
 
 ### Step 1: Install Dependencies
 
-Install the necessary dependencies for Apptainer by entering the following command into the WSL terminal:
+Install the necessary dependencies for Docker by entering the following command into the WSL terminal:
 
    ```bash
-   sudo apt install -y software-properties-common
+   sudo apt install -y ca-certificates curl gnupg lsb-release
    ```
-### Step 2: Install Apptainer
-To install Apptainer we need to add the remote repository, this is the location online that WSL will look to download the software.
-   ```
-   sudo add-apt-repository -y ppa:apptainer/ppa
-   ```
-And now that the repository is added, we can download and install Apptainer.
+### Step 2: Add Docker's Official GPG Key
+Add Docker's official GPG key:
    ```bash
-   sudo apt -y update && sudo apt install -y apptainer
+   sudo mkdir -p /etc/apt/keyrings
+   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
    ```
-To verify that Apptainer is installed correctly, run:
+### Step 3: Set Up the Repository
+Set up the Docker repository:
+   ```bash
+   echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+   ```
+### Step 4: Install Docker Engine
+Update the package index and install Docker:
+   ```bash
+   sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+   ```
+### Step 5: Start Docker Service
+Start and enable the Docker service:
+   ```bash
+   sudo systemctl start docker
+   sudo systemctl enable docker
+   ```
+### Step 6: Add User to Docker Group
+Add your user to the docker group to run Docker commands without sudo:
+   ```bash
+   sudo usermod -aG docker $USER
+   ```
+Log out and log back in for the group changes to take effect.
+
+To verify that Docker is installed correctly, run:
 
    ```bash
-   apptainer --version
+   docker --version
    ```
-You should see the installed version of Apptainer (e.g. apptainer version 1.3.2-1).
+You should see the installed version of Docker (e.g. Docker version 24.0.7, build afdd53b).
 
-## Install the RayCloudtools Apptainer Image
+## Install the RayCloudtools Docker Image
 
 ### Step 1: Pull the RayCloudTools container image:
 
 To download the RayCloudTools container:
 
    ```bash
-   apptainer pull docker://tdevereux/raycloudtools:latest
+   docker pull ghcr.io/csiro-robotics/raycloudtools:latest
    ```
-### Step 2: Run the RayCloudTools container using the image:
+### Step 2: Run the RayCloudTools container:
 
-To run and enter the container:
+To run and enter the container interactively:
 
    ```bash
-   apptainer shell raycloudtools_latest.sif
+   docker run -it --rm ghcr.io/csiro-robotics/raycloudtools:latest bash
    ```
 
 Test the container by running a RayCloudTools command:
@@ -112,7 +132,7 @@ Test the container by running a RayCloudTools command:
    ```bash
    rayimport
    ```
-If all is well, you should see - 
+If all is well, you should see -
    ```
    Import a point cloud and trajectory file into a ray cloud
    usage:
@@ -168,8 +188,8 @@ To exit the container and return to WSL:
 
 ## Conclusion
 
-That is everything for need to comtinue! You have successfully installed WSL, Apptainer, and VSCode on your Windows machine. You have cloned a Git repository and configured a software container to run RayCloudTools. In the next workshop we will learn to use what we have installed here to extract tree metrics from point cloud data using RCT and analyse the output using Python.
+That is everything for need to comtinue! You have successfully installed WSL, Docker, and VSCode on your Windows machine. You have cloned a Git repository and configured a software container to run RayCloudTools. In the next workshop we will learn to use what we have installed here to extract tree metrics from point cloud data using RCT and analyse the output using Python.
 
-For additional help or information, refer to the official [WSL documentation](https://docs.microsoft.com/en-us/windows/wsl/), [Visual Studio Code documentation](https://code.visualstudio.com/docs), and [Apptainer documentation](https://apptainer.org/docs/).
+For additional help or information, refer to the official [WSL documentation](https://docs.microsoft.com/en-us/windows/wsl/), [Visual Studio Code documentation](https://code.visualstudio.com/docs), and [Docker documentation](https://docs.docker.com/).
 
 ---
